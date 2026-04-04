@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sky Engineering - Messages</title>
+    <style>
+        :root {--sky-purple: #9d4edd; --sky-light-bg: #f8f9fc; --sky-pink: #ff4d6d; }
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; height: 100vh; background-color: var(--sky-light-bg); color: #333; overflow: hidden; }
+        
+        /*Column 1: Main Portal Navigation */
+        .main-nav {width: 200px; background: #fff; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; padding: 20px 10px; flex-shrink: 0; height: 100vh; box-sizing: border-box; }
+        .logo-container {display: flex; align-items: center; gap: 12px; padding-left: 10px; margin-bottom: 30px;}
+        .logo-icon {width: 40px; height: 40px; background: linear-gradient(135deg, #9d4edd, #ff4d6d); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 22px; box-shadow: 0 4px 10px rgba(157, 78, 221, 0.2);}
+        .logo-text {font-size: 24px; font-weight: 800; color: #9d4edd; letter-spacing: -1px;}
+        
+        /*Shared style for links and logout button*/
+        .main-nav-item {padding: 12px; text-decoration: none; color: #888; font-size: 14px; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-weight: 600; margin-bottom: 4px; border: none; background: none; width: 100%; text-align: left; cursor: pointer; font-family: inherit;}
+        .main-nav-item:hover {color: var(--sky-purple); background: #fdf2ff; border-radius: 8px; }
+        
+        .sidebar-footer {margin-top: auto; padding-top: 20px;}
+        .version-text {padding-left: 12px; padding-bottom: 10px; font-size: 11px; color: #ccc; font-weight: 500;margin-top: 5px;}
+
+        /*Column 2: Messaging Folders */
+        .sidebar {width: 240px; background: #fff; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; padding: 20px; flex-shrink: 0; }
+        .nav-item {padding: 12px 15px; border-radius: 8px; text-decoration: none; color: #666; margin-bottom: 5px; display: flex; align-items: center; transition: 0.3s; font-size: 14px; }
+        .nav-item:hover {background: #f0f0f0; }
+        .nav-item.active {background: #fdf2ff; color: var(--sky-purple); font-weight: bold; }
+        .btn-new {background: linear-gradient(45deg, #9d4edd, #ff4d6d); color: white; padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; text-decoration: none; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(157, 78, 221, 0.3); }
+
+        /*Column 3: Message List */
+        .message-list {width: 350px; background: #fff; border-right: 1px solid #e0e0e0; overflow-y: auto; flex-shrink: 0; }
+        .list-header {padding: 20px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; }
+        .search-bar {width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; outline: none; box-sizing: border-box; }
+        
+        .msg-preview {padding: 20px; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.2s; border-left: 4px solid transparent; display: block; text-decoration: none; color: inherit; }
+        .msg-preview:hover {background-color: #fcfcfc; border-left: 4px solid var(--sky-purple); }
+        .msg-preview.active-msg {background-color: #fdf2ff; border-left: 4px solid var(--sky-purple); }
+        
+        .msg-preview .subject {font-size: 13px; color: #333; margin: 4px 0; font-weight: 600; }
+        .msg-preview .snippet {font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /*Column 4: Reading Part*/
+        .reading-pane {flex: 1; padding: 40px; background: #fff; display: flex; flex-direction: column; overflow-y: auto; }
+        .msg-header {border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+        .empty-state {margin: auto; text-align: center; color: #aaa; }
+    </style>
+</head>
+<body>
+
+    <div class="main-nav">
+        <div class="logo-container">
+            <div class="logo-icon">S</div>
+            <span class="logo-text">sky</span>
+        </div>
+        <a href="#" class="main-nav-item">👥 Teams</a>
+        <a href="#" class="main-nav-item">🏢 Departments</a>
+        <a href="#" class="main-nav-item">🏬 Organisation</a>
+        <a href="{% url 'inbox' %}" class="main-nav-item" style="color: var(--sky-purple); background: #fdf2ff; border-radius: 8px;">💬 Messages</a>
+        <a href="#" class="main-nav-item">📅 Schedule</a>
+        
+        <div class="sidebar-footer">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="main-nav-item" style="color: #d9534f;">
+                    🔓 Logout
+                </button>
+            </form>
+            <div class="version-text">v2026.1.0</div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="{% url 'new_message' %}" class="btn-new">+ New Message</a>
+        <a href="{% url 'inbox' %}" class="nav-item active">📥 Inbox</a>
+        <a href="{% url 'sent_messages' %}" class="nav-item">📤 Sent</a>
+        <a href="{% url 'drafts' %}" class="nav-item">📝 Drafts</a>
+    </div>
+
+    <div class="message-list">
+        <div class="list-header">
+            <form method="GET" action="{% url 'inbox' %}">
+                <input type="text" name="q" class="search-bar" placeholder="Search inbox..." value="{{ query|default:'' }}">
+            </form>
+        </div>
+        {% for msg in messages %}
+        <a href="{% url 'inbox_detail' msg.id %}" class="msg-preview {% if msg.id == selected_message.id %}active-msg{% endif %}">
+            <div style="display: flex; justify-content: space-between;">
+                <span class="user" style="color: var(--sky-purple); font-weight: 600; font-size: 12px;">{{ msg.sender.username }}</span>
+                <span style="font-size: 11px; color: #bbb;">{{ msg.timestamp|date:"d M" }}</span>
+            </div>
+            <div class="subject">{{ msg.subject|default:"(No Subject)" }}</div>
+            <div class="snippet">{{ msg.body|truncatechars:60 }}</div>
+        </a>
+        {% empty %}
+        <div style="padding: 40px 20px; text-align: center; color: #ccc; font-size: 14px;">No messages here.</div>
+        {% endfor %}
+    </div>
+
+    <div class="reading-pane">
+        {% if selected_message %}
+            <div class="msg-header">
+                <h2 style="margin: 0 0 10px 0;">{{ selected_message.subject|default:"(No Subject)" }}</h2>
+                <div style="font-size: 14px;">From: <b>{{ selected_message.sender.username }}</b> to Me</div>
+                <div style="font-size: 12px; color: #999; margin-top: 5px;">{{ selected_message.timestamp|date:"d M Y, H:i" }}</div>
+            </div>
+            <div class="msg-body" style="line-height: 1.6; color: #444; margin-top: 20px; white-space: pre-wrap;">{{ selected_message.body }}</div>
+        {% else %}
+            <div class="empty-state">
+                <div style="font-size: 48px; margin-bottom: 10px;">📥</div>
+                <p>Select a message to read its content.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

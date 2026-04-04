@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sky Engineering - New Message</title>
+    <style>
+        :root {--sky-purple: #9d4edd; --sky-light-bg: #f8f9fc; --sky-pink: #ff4d6d; }
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; height: 100vh; background-color: var(--sky-light-bg); color: #333; overflow: hidden; }
+        
+        /* Column 1: Main Portal Navigation */
+        .main-nav {width: 200px; background: #fff; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; padding: 20px 10px; flex-shrink: 0; height: 100vh; box-sizing: border-box; }
+        .logo-container {display: flex; align-items: center; gap: 12px; padding-left: 10px; margin-bottom: 30px;}
+        .logo-icon {width: 40px; height: 40px; background: linear-gradient(135deg, #9d4edd, #ff4d6d); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 22px; box-shadow: 0 4px 10px rgba(157, 78, 221, 0.2);}
+        .logo-text {font-size: 24px; font-weight: 800; color: #9d4edd; letter-spacing: -1px;}
+        
+        /*Shared style for links and logout button*/
+        .main-nav-item {padding: 12px; text-decoration: none; color: #888; font-size: 14px; display: flex; align-items: center; gap: 10px; transition: 0.3s; font-weight: 600; margin-bottom: 4px; border: none; background: none; width: 100%; text-align: left; cursor: pointer; font-family: inherit;}
+        .main-nav-item:hover {color: var(--sky-purple); background: #fdf2ff; border-radius: 8px; }
+        
+        .sidebar-footer {margin-top: auto; padding-top: 20px;}
+        .version-text {padding-left: 12px; padding-bottom: 10px; font-size: 11px; color: #ccc; font-weight: 500;margin-top: 5px;}
+
+        /* Column 2: Messaging Folders */
+        .sidebar {width: 240px; background: #fff; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; padding: 20px; flex-shrink: 0; }
+        .nav-item {padding: 12px 15px; border-radius: 8px; text-decoration: none; color: #666; margin-bottom: 5px; display: flex; align-items: center; transition: 0.3s; font-size: 14px; }
+        .nav-item:hover {background: #f0f0f0; }
+        .btn-new-active {background: linear-gradient(45deg, #9d4edd, #ff4d6d); color: white; padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; text-decoration: none; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(157, 78, 221, 0.3); }
+
+        /*Composing messag area */
+        .compose-area {flex: 1; padding: 40px; background: #fff; overflow-y: auto; display: flex; justify-content: center; }
+        .compose-card {width: 100%; max-width: 800px; }
+        .form-header {border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+        .form-header h2 {margin: 0; color: #333; }
+
+        .form-group {margin-bottom: 20px; }
+        label {display: block; margin-bottom: 8px; font-weight: 600; color: #555; font-size: 14px; }
+        input[type="text"], select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 14px; background-color: #fcfcfc; font-family: inherit;}
+        input:focus, select:focus, textarea:focus {outline: none; border-color: var(--sky-purple); background-color: #fff; box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.1); }
+
+        .action-buttons {margin-top: 30px; display: flex; gap: 15px; }
+        .btn-send {background-color: var(--sky-purple); color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-draft {background-color: #f0f0f0; color: #555; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-send:hover {opacity: 0.9; transform: translateY(-1px); }
+        .btn-draft:hover {background-color: #e5e5e5; }
+    </style>
+</head>
+<body>
+
+    <div class="main-nav">
+        <div class="logo-container">
+            <div class="logo-icon">S</div>
+            <span class="logo-text">sky</span>
+        </div>
+        <a href="#" class="main-nav-item">👥 Teams</a>
+        <a href="#" class="main-nav-item">🏢 Departments</a>
+        <a href="#" class="main-nav-item">🏬 Organisation</a>
+        <a href="{% url 'inbox' %}" class="main-nav-item">💬 Messages</a>
+        <a href="#" class="main-nav-item">📅 Schedule</a>
+
+        <div class="sidebar-footer">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="main-nav-item" style="color: #d9534f;">
+                    🔓 Logout
+                </button>
+            </form>
+            <div class="version-text">v2026.1.0</div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <a href="{% url 'new_message' %}" class="btn-new-active">New Message</a>
+        <a href="{% url 'inbox' %}" class="nav-item">📥 Inbox</a>
+        <a href="{% url 'sent_messages' %}" class="nav-item">📤 Sent</a>
+        <a href="{% url 'drafts' %}" class="nav-item">📝 Drafts</a>
+    </div>
+
+    <div class="compose-area">
+        <div class="compose-card">
+            <div class="form-header">
+                <h2>{% if draft %}Continue Draft{% else %}New Message{% endif %}</h2>
+                <p style="color: #888; font-size: 14px;">Communicate technical updates across the engineering team.</p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label>Recipient</label>
+                    <select name="recipient" required>
+                        <option value="" disabled {% if not draft %}selected{% endif %}>Select an engineer...</option>
+                        {% for user in users %}
+                            <option value="{{ user.id }}" {% if draft.recipient.id == user.id %}selected{% endif %}>
+                                {{ user.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" name="subject" value="{{ draft.subject|default:'' }}" placeholder="e.g., API Deployment or System Maintenance" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message Content</label>
+                    <textarea name="body" placeholder="Describe the task or update..." rows="12" required>{{ draft.body|default:'' }}</textarea>
+                </div>
+                
+                <div class="action-buttons">
+                    <button type="submit" name="send" class="btn-send">🚀 Send Message</button>
+                    <button type="submit" name="save_draft" class="btn-draft">💾 Save as Draft</button>
+                    <a href="{% url 'inbox' %}" style="margin-left: auto; align-self: center; color: #888; text-decoration: none; font-size: 14px;">Discard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

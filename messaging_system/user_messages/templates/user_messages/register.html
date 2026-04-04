@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Engineering - Join Sky</title>
+    <style>
+        :root {
+            --sky-purple: #9d4edd;
+            --sky-pink: #ff4d6d;
+            --sky-bg: #f8f9fc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fdf2ff 0%, #f8f9fc 100%);
+        }
+        /*The Login/Register Card */
+        .auth-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(157, 78, 221, 0.1);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .logo-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--sky-purple), var(--sky-pink));
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 900; font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 16px rgba(157, 78, 221, 0.2);
+        }
+        h2 { color: #333; margin-bottom: 8px; font-weight: 800; }
+        p.subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
+        
+        /* Form Inputs */
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background: #fdfdfd;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--sky-purple);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(157, 78, 221, 0.05);
+        }
+        /* Buttons*/
+        button {
+            width: 100%;
+            background: linear-gradient(45deg, var(--sky-purple), var(--sky-pink));
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(157, 78, 221, 0.25);
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(157, 78, 221, 0.35);
+        }
+        a { color: var(--sky-purple); text-decoration: none; font-weight: 600; font-size: 13px; }
+        a:hover { text-decoration: underline; }
+        .footer-link { margin-top: 25px; color: #888; font-size: 13px; }
+
+        /*Small help text for passwords */
+        .help-text {
+            font-size: 10px;
+            color: #aaa;
+            text-align: left;
+            margin-bottom: 5px;
+            padding: 0 5px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <div class="logo-icon">S</div>
+        <h2>Join Sky</h2>
+        <p class="subtitle">Create your engineer account</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <input type="{{ field.field.widget.input_type }}" 
+                       name="{{ field.name }}" 
+                       placeholder="{{ field.label }}" 
+                       required>
+                
+                {% if field.help_text %}
+                    <span class="help-text">Note: {{ field.help_text|striptags }}</span>
+                {% endif %}
+
+                {% if field.errors %}
+                    <div style="color: var(--sky-pink); font-size: 11px; text-align: left; margin: -5px 0 10px 5px;">
+                        {{ field.errors.0 }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+            <button type="submit">Create Account</button>
+        </form>
+        
+        <div class="footer-link">
+            Already a member? <a href="{% url 'login' %}">Log In</a>
+        </div>
+    </div>
+
+</body>
+</html>
