@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sky Teams</title>
+    <style>
+        :root {
+            --sky-purple: #9d4edd;
+            --sky-pink: #ff4d9d;
+            --sky-light-bg: #f8f9fc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--sky-light-bg);
+            color: #333;
+        }
+
+        .main-nav {
+            width: 200px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9d4edd, #ff4d6d);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(157, 78, 221, 0.2);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: #9d4edd;
+            letter-spacing: -1px;
+        }
+
+        .main-nav-item {
+            padding: 12px;
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .main-nav-item:hover,
+        .main-nav-item.active {
+            color: var(--sky-purple);
+            background: #fdf2ff;
+            border-radius: 8px;
+        }
+
+        .page {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-top: 0;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .search-box input {
+            width: 350px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .btn {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            background: linear-gradient(135deg, #9d4edd, #ff4d9d);
+            display: inline-block;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .team-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f2e6ff;
+            color: #9d4edd;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .skills span {
+            display: inline-block;
+            background: #f5f5f5;
+            padding: 5px 8px;
+            margin: 3px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .small-text {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .secondary-btn {
+            background: #f7f0ff;
+            color: #9d4edd;
+            padding: 9px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .filter-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: white;
+    padding: 16px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 280px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.filter-select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-family: inherit;
+    min-width: 170px;
+}
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.sidebar-footer form {
+    margin: 0;
+}
+
+.logout-btn {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    padding: 12px;
+    color: #d9534f;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.logout-btn:hover {
+    background: #fff1f1;
+    color: #c9302c;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="main-nav">
+        <div class="logo-container">
+            <div class="logo-icon">S</div>
+            <span class="logo-text">sky</span>
+        </div>
+
+        <a href="/teams/dashboard/" class="main-nav-item">📊 Dashboard</a>
+        <a href="/teams/" class="main-nav-item active">👥 Teams</a>
+        <a href="#" class="main-nav-item">🏢 Departments</a>
+        <a href="#" class="main-nav-item">🏬 Organisation</a>
+        <a href="/inbox/" class="main-nav-item">💬 Messages</a>
+        <a href="#" class="main-nav-item">📅 Schedule</a>
+        <a href="/teams/settings/" class="main-nav-item">⚙️ Settings</a>
+
+        <div class="sidebar-footer">
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">🔓 Logout</button>
+    </form>
+        </div>
+    </div>
+
+    
+    <div class="page">
+        <div class="top-bar">
+            <div>
+                <h1>Sky Team</h1>
+                <p class="subtitle">Find teams, explore dependencies, and connect.</p>
+            </div>
+            
+        </div>
+
+        <form method="get" class="filter-bar">
+    <input 
+        type="text" 
+        name="search" 
+        placeholder="Search teams, managers, departments or skills..." 
+        value="{{ search }}"
+        class="search-input"
+    >
+
+    <select name="department" class="filter-select">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+            <option value="{{ dept }}" {% if selected_department == dept %}selected{% endif %}>
+                {{ dept }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <select name="specialisation" class="filter-select">
+        <option value="">All Specialisations</option>
+        {% for spec in specialisations %}
+            <option value="{{ spec }}" {% if selected_specialisation == spec %}selected{% endif %}>
+                {{ spec }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <select name="manager" class="filter-select">
+        <option value="">All Managers</option>
+        {% for person in managers %}
+            <option value="{{ person }}" {% if selected_manager == person %}selected{% endif %}>
+                {{ person }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn">Search</button>
+
+    {% if search or selected_department or selected_specialisation or selected_manager %}
+        <a href="/teams/" class="secondary-btn">Clear</a>
+    {% endif %}
+</form>
+
+        <div class="team-grid">
+            {% for team in teams %}
+                <div class="team-card">
+                    <span class="tag">{{ team.team_type }}</span>
+                    <h2>{{ team.name }}</h2>
+                    <p>{{ team.description }}</p>
+
+                    <p class="small-text"><strong>Department:</strong> {{ team.department }}</p>
+                    <p class="small-text"><strong>Manager:</strong> {{ team.manager }}</p>
+                    <p class="small-text"><strong>Upstream:</strong> {{ team.upstream_dependencies }}</p>
+                    <p class="small-text"><strong>Downstream:</strong> {{ team.downstream_dependencies }}</p>
+
+                    <div class="skills">
+                        <strong>Skills:</strong><br>
+                        {% for skill in team.skill_list %}
+                            <span>{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="card-buttons">
+                        <a href="{% url 'team_detail' team.id %}" class="secondary-btn">View Details</a>
+                        <a href="mailto:{{ team.email }}" class="secondary-btn">Email Team</a>
+                        <a href="{% url 'schedule_meeting' team.id %}" class="secondary-btn">Schedule Meeting</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No teams found.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
