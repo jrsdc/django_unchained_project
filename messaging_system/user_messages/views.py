@@ -134,3 +134,12 @@ def register(request):
     else:
         form = SignUpForm()
     return render(request, 'user_messages/register.html', {'form': form})
+
+def dashboard(request):
+    return render(request, 'user_messages/dashboard.html')
+
+def teams_page(request):
+    return render(request, 'user_messages/teams.html')
+
+def settings_page(request):
+    return render(request, 'user_messages/settings.html')

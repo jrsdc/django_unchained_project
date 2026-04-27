@@ -33,5 +33,6 @@ urlpatterns = [
 
     # Sidebar
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('settings/', views.settings_page, name='settings_page'),
+    path('settings/', views.settings_page, name='settings'),
+    path('teams/', views.teams_page, name='teams'),
 ]
