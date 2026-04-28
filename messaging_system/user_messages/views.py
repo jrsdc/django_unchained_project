@@ -136,7 +136,7 @@ def register(request):
     return render(request, 'user_messages/register.html', {'form': form})
 
 def dashboard(request):
-    return render(request, 'user_messages/dashboard.html')
+    return render(request, 'teams/dashboard.html')
 
 def teams_page(request):
     return render(request, 'user_messages/teams.html')
