@@ -227,7 +227,7 @@
             </div>
 
             <a href="mailto:{{ team.email }}" class="btn">Email Team</a>
-            <a href="{% url 'schedule_meeting' team.id %}" class="btn">Schedule Meeting</a>
+            <a href="{% url 'schedule' %}?team={{ team.id }}" class="btn">Schedule Meeting</a>
         </div>
     </div>
 
