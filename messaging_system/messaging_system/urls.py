@@ -29,6 +29,4 @@ urlpatterns = [
     path('', include('user_messages.urls')),
     path('organisation/', include('organisation.urls')),
     path('inbox/', include ('user_messages.urls')),
-    path('schedule/', include('schedule.urls')),
-
 ]
