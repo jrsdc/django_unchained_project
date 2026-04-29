@@ -188,19 +188,19 @@
             <span class="logo-text">sky</span>
         </div>
 
-        <a href="/teams/dashboard/" class="main-nav-item">📊 Dashboard</a>
-        <a href="/teams/" class="main-nav-item">👥 Teams</a>
-        <a href="#" class="main-nav-item">🏢 Departments</a>
-        <a href="#" class="main-nav-item">🏬 Organisation</a>
-        <a href="/inbox/" class="main-nav-item">💬 Messages</a>
-        <a href="/schedule/" class="main-nav-item active">📅 Schedule</a>
-        <a href="/teams/settings/" class="main-nav-item">⚙️ Settings</a>
+            <a href="/teams/dashboard/" class="main-nav-item">📊 Dashboard</a>
+            <a href="/teams/" class="main-nav-item">👥 Teams</a>
+            <a href="/organisation/departments/" class="main-nav-item">🏢 Departments</a>
+            <a href="/organisation/" class="main-nav-item">🏬 Organisation</a>
+            <a href="/inbox/" class="main-nav-item">💬 Messages</a>
+            <a href="/schedule/" class="main-nav-item">📅 Schedule</a>
+            <a href="/teams/settings/" class="main-nav-item active">⚙️ Settings</a>
 
         <div class="sidebar-footer">
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">🔓 Logout</button>
-            </form>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">🔓 Logout</button>
+    </form>
         </div>
     </div>
 
