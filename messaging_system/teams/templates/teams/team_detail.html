@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ team.name }} Details</title>
+    <style>
+        :root {
+            --sky-purple: #9d4edd;
+            --sky-pink: #ff4d9d;
+            --sky-light-bg: #f8f9fc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--sky-light-bg);
+            color: #333;
+        }
+
+        .main-nav {
+            width: 200px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9d4edd, #ff4d6d);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(157, 78, 221, 0.2);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: #9d4edd;
+            letter-spacing: -1px;
+        }
+
+        .main-nav-item {
+            padding: 12px;
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .main-nav-item:hover,
+        .main-nav-item.active {
+            color: var(--sky-purple);
+            background: #fdf2ff;
+            border-radius: 8px;
+        }
+
+        .page {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .detail-card {
+            background: white;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+            max-width: 900px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f2e6ff;
+            color: #9d4edd;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .info-row {
+            margin: 14px 0;
+            font-size: 15px;
+        }
+
+        .skills span {
+            display: inline-block;
+            background: #f5f5f5;
+            padding: 6px 9px;
+            margin: 4px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .btn {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            background: linear-gradient(135deg, #9d4edd, #ff4d9d);
+            display: inline-block;
+            margin-right: 8px;
+            margin-top: 18px;
+        }
+
+        .secondary-btn {
+            background: #f7f0ff;
+            color: #9d4edd;
+            padding: 11px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 18px;
+        }
+        .sidebar-footer {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.logout-btn {
+    width: 100%;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 12px;
+    text-decoration: none;
+    color: #d9534f;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.logout-btn:hover {
+    background: #fff1f1;
+    color: #c9302c;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="main-nav">
+        <div class="logo-container">
+            <div class="logo-icon">S</div>
+            <span class="logo-text">sky</span>
+        </div>
+
+        <a href="/teams/dashboard/" class="main-nav-item">📊 Dashboard</a>
+        <a href="/teams/" class="main-nav-item active">👥 Teams</a>
+        <a href="/organisation/" class="main-nav-item">🏬 Organisation</a>
+        <a href="/inbox/" class="main-nav-item">💬 Messages</a>
+        <a href="#" class="main-nav-item">📅 Schedule</a>
+        <a href="/teams/settings/" class="main-nav-item">⚙️ Settings</a>
+
+        <div class="sidebar-footer">
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">🔓 Logout</button>
+    </form>
+        </div>
+    </div>
+
+    <div class="page">
+        <a href="/teams/" class="secondary-btn">← Back to Teams</a>
+
+        <div class="detail-card">
+            <span class="tag">{{ team.team_type }}</span>
+            <h1>{{ team.name }}</h1>
+            <p>{{ team.description }}</p>
+
+            <div class="info-row"><strong>Department:</strong> {{ team.department }}</div>
+            <div class="info-row"><strong>Manager:</strong> {{ team.manager }}</div>
+            <div class="info-row"><strong>Email:</strong> {{ team.email }}</div>
+
+            <div class="info-row">
+                <strong>Repository:</strong>
+                {% if team.repository %}
+                    <a href="{{ team.repository }}" target="_blank">{{ team.repository }}</a>
+                {% else %}
+                    No repository provided
+                {% endif %}
+            </div>
+
+            <div class="info-row"><strong>Upstream Dependencies:</strong> {{ team.upstream_dependencies }}</div>
+            <div class="info-row"><strong>Downstream Dependencies:</strong> {{ team.downstream_dependencies }}</div>
+
+            <div class="skills">
+                <strong>Skills & Technologies:</strong><br>
+                {% for skill in team.skill_list %}
+                    <span>{{ skill }}</span>
+                {% endfor %}
+            </div>
+
+            <a href="{% url 'new_message' %}" class="btn">Message Team</a>
+            <a href="{% url 'schedule_meeting' team.id %}" class="btn">Schedule Meeting</a>
+        </div>
+    </div>
+
+</body>
+</html>
