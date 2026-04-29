@@ -2,21 +2,35 @@
 
 {% block content %}
 
-<header style="padding: 35;">
-<h1>Organisation Home</h1>
-<p>All SKY organisation teams</p>
+<header style=" flex:1; padding:35px; overflow-y:auto;">
+    <div style="margin-bottom:25px;">
+<h1 style="font-size: 24px; font-weight: 700;margin: bottom 5px;">Organisation Home</h1>
+<p style="color: #777;margin: 0;">All SKY organisation teams and team types</p>
 </header>
 
-<div class="section" style="margin-top: 25px;">
-    <h2>Teams</h2>
+<div style="display: grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
     {% for team in all_teams %}
-    <div class ="team-row">
-        <p><b>{{team.name}}</b></p>
-        <span>{{team.department}} - Manager: {{team.manager}}</span>
-    </div>
-    {% empty %}
-        <p>No teams available.</p>
-    {% endfor %}
+    <div style="background: white;padding:22px;border-radius: 14px;box-shadow: 0 6px 18px black;border:1px solid white;">
+        <span style="display: inline-block;background: f2e6ff;color:#9d4edd;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom: 12px;">
+            {{team.team_type}}
+            </span>
+     <h2 style="font-size: 16px;margin-bottom:8px ;">{{team.name}}</h2>
+     <p style="font-size: 13px;color:#666;margin-bottom:6px">
+        Department: {{team.department}}
+     </p>       
+     <p style="font-size: 13px;color: #666;">Manager: {{team.manager}}
+     </p>
+
+     <div style="margin: top 12px;">
+        <a href ="/organisation/departments/{{ team.department }}/"
+        style="background:#f7f0ff;color: #9d4edd;padding: 9px 12px;border-radius: 8px; text-decoration: none;font-weight: 700;font-size: 13px;">
+        View Department</a>
+     </div>
+</div>
+{% empty %}
+<p style="color: #888;">No teams to display</p>
+{% endfor %}
+</div>
 
 </div>
 
