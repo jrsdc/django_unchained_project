@@ -12,10 +12,10 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            display: flex;
-            min-height: 100vh;
             background-color: var(--sky-light-bg);
             color: #333;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .main-nav {
@@ -25,8 +25,13 @@
             display: flex;
             flex-direction: column;
             padding: 20px 10px;
-            flex-shrink: 0;
             box-sizing: border-box;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
         }
 
         .logo-container {
@@ -69,18 +74,60 @@
             transition: 0.3s;
             font-weight: 600;
             margin-bottom: 4px;
+            border-radius: 8px;
         }
 
         .main-nav-item:hover,
         .main-nav-item.active {
             color: var(--sky-purple);
             background: #fdf2ff;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .sidebar-footer form {
+            margin: 0;
+        }
+
+        .logout-btn {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: left;
+            cursor: pointer;
+            padding: 12px;
+            color: #d9534f;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
             border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .logout-btn:hover {
+            background: #fff1f1;
+            color: #c9302c;
+        }
+
+        .version-text {
+            margin-top: 12px;
+            padding-left: 12px;
+            color: #c7c7c7;
+            font-size: 11px;
+            font-weight: 600;
         }
 
         .page {
-            flex: 1;
+            margin-left: 200px;
             padding: 30px;
+            height: 100vh;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .top-bar {
@@ -167,6 +214,7 @@
             display: flex;
             gap: 8px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         .secondary-btn {
@@ -180,65 +228,34 @@
         }
 
         .filter-bar {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    background: white;
-    padding: 16px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: white;
+            padding: 16px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
 
-.search-input {
-    flex: 1;
-    min-width: 280px;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-family: inherit;
-}
+        .search-input {
+            flex: 1;
+            min-width: 280px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
 
-.filter-select {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: white;
-    font-family: inherit;
-    min-width: 170px;
-}
-.sidebar-footer {
-    margin-top: auto;
-    padding-top: 20px;
-}
-
-.sidebar-footer form {
-    margin: 0;
-}
-
-.logout-btn {
-    width: 100%;
-    border: none;
-    background: transparent;
-    text-align: left;
-    cursor: pointer;
-    padding: 12px;
-    color: #d9534f;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    border-radius: 8px;
-    font-family: inherit;
-}
-
-.logout-btn:hover {
-    background: #fff1f1;
-    color: #c9302c;
-}
-
+        .filter-select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            font-family: inherit;
+            min-width: 170px;
+        }
     </style>
 </head>
 <body>
@@ -258,65 +275,65 @@
         <a href="/teams/settings/" class="main-nav-item">⚙️ Settings</a>
 
         <div class="sidebar-footer">
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="logout-btn">🔓 Logout</button>
-    </form>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">🔓 Logout</button>
+            </form>
+
+            <div class="version-text">v2026.1.0</div>
         </div>
     </div>
 
-    
     <div class="page">
         <div class="top-bar">
             <div>
                 <h1>Sky Team</h1>
                 <p class="subtitle">Find teams, explore dependencies, and connect.</p>
             </div>
-            
         </div>
 
         <form method="get" class="filter-bar">
-    <input 
-        type="text" 
-        name="search" 
-        placeholder="Search teams, managers, departments or skills..." 
-        value="{{ search }}"
-        class="search-input"
-    >
+            <input 
+                type="text" 
+                name="search" 
+                placeholder="Search teams, managers, departments or skills..." 
+                value="{{ search }}"
+                class="search-input"
+            >
 
-    <select name="department" class="filter-select">
-        <option value="">All Departments</option>
-        {% for dept in departments %}
-            <option value="{{ dept }}" {% if selected_department == dept %}selected{% endif %}>
-                {{ dept }}
-            </option>
-        {% endfor %}
-    </select>
+            <select name="department" class="filter-select">
+                <option value="">All Departments</option>
+                {% for dept in departments %}
+                    <option value="{{ dept }}" {% if selected_department == dept %}selected{% endif %}>
+                        {{ dept }}
+                    </option>
+                {% endfor %}
+            </select>
 
-    <select name="specialisation" class="filter-select">
-        <option value="">All Specialisations</option>
-        {% for spec in specialisations %}
-            <option value="{{ spec }}" {% if selected_specialisation == spec %}selected{% endif %}>
-                {{ spec }}
-            </option>
-        {% endfor %}
-    </select>
+            <select name="specialisation" class="filter-select">
+                <option value="">All Specialisations</option>
+                {% for spec in specialisations %}
+                    <option value="{{ spec }}" {% if selected_specialisation == spec %}selected{% endif %}>
+                        {{ spec }}
+                    </option>
+                {% endfor %}
+            </select>
 
-    <select name="manager" class="filter-select">
-        <option value="">All Managers</option>
-        {% for person in managers %}
-            <option value="{{ person }}" {% if selected_manager == person %}selected{% endif %}>
-                {{ person }}
-            </option>
-        {% endfor %}
-    </select>
+            <select name="manager" class="filter-select">
+                <option value="">All Managers</option>
+                {% for person in managers %}
+                    <option value="{{ person }}" {% if selected_manager == person %}selected{% endif %}>
+                        {{ person }}
+                    </option>
+                {% endfor %}
+            </select>
 
-    <button type="submit" class="btn">Search</button>
+            <button type="submit" class="btn">Search</button>
 
-    {% if search or selected_department or selected_specialisation or selected_manager %}
-        <a href="/teams/" class="secondary-btn">Clear</a>
-    {% endif %}
-</form>
+            {% if search or selected_department or selected_specialisation or selected_manager %}
+                <a href="/teams/" class="secondary-btn">Clear</a>
+            {% endif %}
+        </form>
 
         <div class="team-grid">
             {% for team in teams %}

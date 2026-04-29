@@ -12,10 +12,10 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            display: flex;
-            min-height: 100vh;
             background-color: var(--sky-light-bg);
             color: #333;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .main-nav {
@@ -25,8 +25,13 @@
             display: flex;
             flex-direction: column;
             padding: 20px 10px;
-            flex-shrink: 0;
             box-sizing: border-box;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
         }
 
         .logo-container {
@@ -75,9 +80,47 @@
             background: #fdf2ff;
         }
 
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            border: none;
+            background: none;
+            text-align: left;
+            cursor: pointer;
+            padding: 12px;
+            color: #d9534f;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .logout-btn:hover {
+            background: #fff1f1;
+            color: #c9302c;
+        }
+
+        .version-text {
+    margin-top: 12px;
+    padding-left: 12px;
+    color: #c7c7c7;
+    font-size: 11px;
+    font-weight: 600;
+}
+
         .page {
-            flex: 1;
-            padding: 35px;
+            margin-left: 200px;
+            padding: 30px;
+            height: 100vh;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .header h1 {
@@ -104,7 +147,7 @@
             border: 1px solid #eee;
         }
 
-        .card h2 {
+        .card h3 {
             margin: 0;
             font-size: 34px;
             color: #222;
@@ -143,35 +186,9 @@
             border-radius: 10px;
             font-weight: 700;
         }
-        .sidebar-footer {
-    margin-top: auto;
-    padding-top: 20px;
-}
-
-.logout-btn {
-    width: 100%;
-    border: none;
-    background: none;
-    text-align: left;
-    cursor: pointer;
-    padding: 12px;
-    text-decoration: none;
-    color: #d9534f;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    border-radius: 8px;
-    font-family: inherit;
-}
-
-.logout-btn:hover {
-    background: #fff1f1;
-    color: #c9302c;
-}
     </style>
 </head>
+
 <body>
 
     <div class="main-nav">
@@ -188,14 +205,14 @@
         <a href="/schedule/" class="main-nav-item">📅 Schedule</a>
         <a href="/teams/settings/" class="main-nav-item">⚙️ Settings</a>
 
-    <div class="sidebar-footer">
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">🔓 Logout</button>
-        </form>
+        <div class="sidebar-footer">
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">🔓 Logout</button>
+            </form>
+            <div class="version-text">v2026.1.0</div>
+        </div>
     </div>
-
-</div>
 
     <div class="page">
         <div class="header">
