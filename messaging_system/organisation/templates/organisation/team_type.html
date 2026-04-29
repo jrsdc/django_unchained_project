@@ -1,0 +1,34 @@
+{% extends 'organisation/base.html' %}
+
+{% block content %}
+
+<div style="padding:30px; width: 100%;">
+
+    <div style="margin-bottom:25px;">
+        <a href="/organisation/" style="font-size: 13px; color: #9d4edd; text-decoration: none;"> Back to Organisation</a>
+<header style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">{{ team_type.name }}</header>
+<p style="color: #777;margin: 0;">All teams with this specialisation</p>
+        </div>
+
+        <div style ="display: grid; grid-template-columns:repeat(3,1fr);gap:20px;">
+{% for team in teams %}
+    <div style="background:white;padding:22px; border-radius: 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);border: 1px solid #eee;">
+        <span style="display: inline-block; background: #f2e6ff;color: #9d4edd; padding: 5px 9px; border-radius: 20px; font-size:12px; font-weight: 700; margin-bottom: 12px;">
+            {{team.team_type}}
+        </span>
+
+    <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 3px;"> {{team.name}}</h2>
+    <p style="font-size: 13px;color: #666; font-weight: 600;margin-bottom: 6px;">{{ team.department }}</p>
+
+                <p style="font-size:13px ; color: #888;margin-bottom: 3px;">
+                {{team.manager}} - {{team.name}}
+                </p>
+    </div>
+    {% empty %}
+        </div>
+    {% empty %}
+    <p style="color: #8888;">No teams</p>
+    {% endfor %}
+    </div>
+</div>
+    {% endblock %}
