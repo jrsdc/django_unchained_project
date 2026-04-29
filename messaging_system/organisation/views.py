@@ -9,6 +9,7 @@ def home(request):
     all_teams = Team.objects.all()
     return render(request, 'organisation/home.html', {'all_teams': all_teams})
 
+'''
 dept_map = {}
 for team in Team.objects.all():
     dept_name = team.department.name
@@ -23,11 +24,17 @@ for dept_name, teams in dept_map.items():
         'teams': teams,
         'team_count': len(teams)
     })
+'''
 
 @login_required
 def department_detail(request, department_name):
-    teams = Team.objects.filter(department__name=department_name)   
+    teams = Team.objects.filter(department=department_name)   
     return render(request, 'organisation/department_detail.html', {'teams': teams})
+
+@login_required
+def department_list(request):
+    all_teams = Team.objects.all()
+    return render(request, 'organisation/department_list.html', {'all_teams': all_teams})
 
 @login_required
 def dependencies_view(request):
@@ -37,8 +44,7 @@ def dependencies_view(request):
 @login_required
 def team_dependencies_view(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    dependencies = team.dependencies.all()
-    return render(request, 'organisation/team_dependencies.html', {'team': team, 'dependencies': dependencies})
+    return render(request, 'organisation/team_dependencies.html', {'team': team, 'all_teams': Team.objects.all()})
 
 @login_required
 def team_type_view(request, team_type):
