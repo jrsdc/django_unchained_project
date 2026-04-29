@@ -7,4 +7,16 @@
     <p style="color: #888;margin-top: 4px;">Explore the dependencies for this team</p>
 </div>
 
-
+##Team selection
+<div style="background-color: white; border-radius: 14px; padding:20px; border: 1px solid #eee; margin-bottom: 24px;">
+    <label style="font-size: 14px; font-weight: 600; color: #333;">Select Team</label>
+    <select onchange="window.location.href='/organisation/dependencies/' + this.value + '/'"
+        style="margin-left: 12px; padding: 8px 12px;  border-radius: 8px; border: 1px solid #ddd; font-size: 14px;">
+        <option value="">-- Choose a team --</option>
+        {% for team in all_teams %}
+        <option value="{{ team.id }}" {% if selected_team and selected_team.id == team.id %}selected{% endif %}>
+            {{ team.name }} {{ team.department }}
+            </option>
+            {% endfor% }
+            </select>
+</div>
