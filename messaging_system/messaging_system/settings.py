@@ -120,7 +120,7 @@ STATIC_URL = 'static/'
 
 # Where to go after login/logout
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'inbox'
+LOGIN_REDIRECT_URL = '/teams/dashboard/'
 LOGOUT_REDIRECT_URL = 'login'
 
 # For testing Forgot Password (emails will show up in your VS Code terminal)
