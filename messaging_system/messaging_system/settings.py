@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user_messages',
     'teams',
     'organisation.apps.OrganisationConfig',
+    'schedule',
 ]
 
 MIDDLEWARE = [
