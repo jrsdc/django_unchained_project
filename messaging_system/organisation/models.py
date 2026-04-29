@@ -21,7 +21,7 @@ class Department(models.Model):
     ##Customer helper method that finds all teams in the department
     def get_teams(self):
         from teams.models import Team
-        return Team.objects.filter(department=self)
+        return Team.objects.filter(department=self.name)
 
     def __str__(self):
         return f"{self.name}"

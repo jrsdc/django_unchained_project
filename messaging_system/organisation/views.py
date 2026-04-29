@@ -66,11 +66,11 @@ def dependencies_view(request):
 
 @login_required
 def team_dependencies_view(request, team_id):
-    team = get_object_or_404(Team, id=team_id)
+    selected_team = get_object_or_404(Team, id=team_id)
     all_teams = Team.objects.all()
 
-
-    return render(request, 'organisation/dependencies.html', )
+    return render(request, 'organisation/dependencies.html', {'all_teams': all_teams,
+                                                            'selected_team':selected_team} )
 
 
 
