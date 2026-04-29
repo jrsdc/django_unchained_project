@@ -34,7 +34,25 @@ def department_detail(request, department_name):
 @login_required
 def department_list(request):
     all_teams = Team.objects.all()
-    return render(request, 'organisation/department_list.html', {'all_teams': all_teams})
+
+    dept_map = {}
+    for team in all_teams:
+        dept_name = team.department or 'Unassigned'
+        if dept_name not in dept_map:
+            dept_map[dept_name] = []
+        dept_map[dept_name].append(team)
+
+    departments = []
+    for dept_name,teams in sorted(dept_map.items()):
+        departments.append({
+            'name': dept_name,
+            'teams': teams,
+            'team_count': len(teams),
+        })
+
+    return render(request, 'organisation/department_list.html', {'departments': departments})
+
+
 
 @login_required
 def dependencies_view(request):

@@ -1,0 +1,39 @@
+{% extends 'organisation/base.html' %}
+
+{% block content %}
+
+<div style=" flex:1; padding:35px; overflow-y:auto;">
+    <div style="margin-bottom:25px;">
+<h1 style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">Departments</h1>
+<p style="color: #777;margin: 0;">All SKY departments</p>
+        </div>
+
+<div style ="display: grid; grid-template-columns:repeat(3,1fr); box-shadow: rgba(0,0,0,0.06); border: 1px solid #eee;">
+{% for dept in departments %}
+    <span style="display: inline-block; background: #f2e6ff;color: #9d4edd; padding: 5px 9px; border-radius: 20px; font-size:12px; font-weight: 700; margin-bottom: 12px;">
+        {{dept.team_count}} team
+    </span>
+
+    <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 3px;"> {{dept.name}}</h2>
+    <div style="margin-bottom: 12px;">
+        <p style="font-size: 13px;color: #666; font-weight: 600;margin-bottom: 6px;">Team Leaders</p>
+        {% for team in dept.teams %}
+            <p style="font-size:13px ; color: #888;margin-bottom: 3px;">
+                + {{team.manager}} - {{team.name}}
+            </p>
+            {% endfor %}
+    </div>
+
+    <div style="margin-top: 16px;">
+        <a href="/organisation/departments/{{ dept.name }}/"
+            style="background:#f7f0ff; color:#9d4edd; padding: 9px 12px; border-radius: 8px; text-decoration:none; font-weight: 700; font-size: 13px;">
+            View Department
+        </a>
+    </div>
+    </div>
+    {% empty %}
+    <p style="color: #8888;">No departments</p>
+    {% endfor %}
+    </div>
+</div>
+    {% endblock %}
