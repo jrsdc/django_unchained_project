@@ -1,0 +1,20 @@
+{% extends 'teams/base.html' %}
+
+{% block content %}
+<header>
+<h1>Organisation Home</h1>
+<p>All SKY organisation teams</p>
+</header>
+
+<div class="section">
+    <h2>Teams</h2>
+    <div class ="team-row">
+        <p><b>team.name</b></p>
+        <span>{{team.department}} - Manager: {{team.manager}}</span>
+        {% empty %}
+            <p>No teams available.</p>
+        {% endempty %}
+    </div>>
+</div>
+
+{% endblock %}
