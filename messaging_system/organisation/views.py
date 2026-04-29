@@ -29,7 +29,8 @@ for dept_name, teams in dept_map.items():
 @login_required
 def department_detail(request, department_name):
     teams = Team.objects.filter(department=department_name)   
-    return render(request, 'organisation/department_detail.html', {'teams': teams})
+    return render(request, 'organisation/department_detail.html', {'teams': teams, 
+                                                                   'department_name':department_name})
 
 @login_required
 def department_list(request):
@@ -57,12 +58,21 @@ def department_list(request):
 @login_required
 def dependencies_view(request):
     teams = Team.objects.all()
-    return render(request, 'organisation/dependencies.html', {'teams': teams}) 
+    return render(request, 'organisation/dependencies.html', {'all_teams': teams,
+                                                              'selected_team':None,
+                                                              'upstream_teams': [],
+                                                              'downstram_teams': []}
+                                                            ) 
 
 @login_required
 def team_dependencies_view(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    return render(request, 'organisation/team_dependencies.html', {'team': team, 'all_teams': Team.objects.all()})
+    all_teams = Team.objects.all()
+
+
+    return render(request, 'organisation/dependencies.html', )
+
+
 
 @login_required
 def team_type_view(request, team_type):
