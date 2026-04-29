@@ -2,7 +2,6 @@
 from . import views
 from django.urls import path
 
-from messaging_system.teams import views
 
 urlpatterns = [
     path('', views.home, name='home'),
