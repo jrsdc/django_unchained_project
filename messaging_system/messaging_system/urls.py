@@ -28,4 +28,5 @@ urlpatterns = [
     path('teams/', include('teams.urls')),
     path('', include('user_messages.urls')),
     path('organisation/', include('organisation.urls')),
+    path('inbox/', include ('user_messages.urls')),
 ]
