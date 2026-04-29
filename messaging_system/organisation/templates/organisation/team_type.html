@@ -6,7 +6,7 @@
 
     <div style="margin-bottom:25px;">
         <a href="/organisation/" style="font-size: 13px; color: #9d4edd; text-decoration: none;"> Back to Organisation</a>
-<header style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">{{ team_type.name }}</header>
+<header style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">{{ team_type }}</header>
 <p style="color: #777;margin: 0;">All teams with this specialisation</p>
         </div>
 
@@ -24,8 +24,6 @@
                 {{team.manager}} - {{team.name}}
                 </p>
     </div>
-    {% empty %}
-        </div>
     {% empty %}
     <p style="color: #8888;">No teams</p>
     {% endfor %}
