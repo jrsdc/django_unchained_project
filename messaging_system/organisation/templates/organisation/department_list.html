@@ -4,9 +4,11 @@
 
 <div style="padding:30px;flex: 1;overflow-y: auto; width: 100%;">
     <div style="margin-bottom:25px;">
-<header style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">Departments</header>
+
+<h1 style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">Departments</h1>
 <p style="color: #777;margin: 0;">All Sky departments</p>
-        </div>
+</div>
+        
 
 <div style="display: grid; grid-template-columns:repeat(3,1fr);gap:20px;">
 {% for dept in departments %}
@@ -36,5 +38,6 @@
     <p style="color: #8888;">No departments</p>
     {% endfor %}
     </div>
+</div>
 </div>
     {% endblock %}
