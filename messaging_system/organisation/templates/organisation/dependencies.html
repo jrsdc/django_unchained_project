@@ -17,7 +17,7 @@
         <option value="{{ team.id }}" {% if selected_team and selected_team.id == team.id %}selected{% endif %}>
             {{ team.name }} {{ team.department }}
             </option>
-            {% endfor% }
+            {% endfor %}
             </select>
 </div>
 
@@ -39,7 +39,7 @@
 
         <span style="font-size: 12px; color: #888; font-weight: 400;">(teams that depend on {{ selected_team.name }})</span>
     </h3>>
-    {{% if selected_team.downstream_dependencies %}}
+    {% if selected_team.downstream_dependencies %}
     <p style="font-size: 14px; color: #444; background: f8f9fc; padding: 12px; border-radius: 8px;">
             {{ selected_team.downstream_dependencies }}
 </p>
@@ -55,7 +55,7 @@
 
         <span style="font-size: 12px; color: #888; font-weight: 400;">(teams that {{ selected_team.name }} depends on)</span>
     </h3>>
-    {{% if selected_team.upstream_dependencies %}}
+    {% if selected_team.upstream_dependencies %}
     <p style="font-size: 14px; color: #444; background: f8f9fc; padding: 12px; border-radius: 8px;">
             {{ selected_team.upstream_dependencies }}
 </p>
