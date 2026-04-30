@@ -23,4 +23,26 @@ class OrganisationTests(TestCase):
             email='first@sky.com',
             downstream_dependencies='Team 2',
             upstream_dependencies='',
+        )   
+
+        self.team2 = Team.objects.create(
+            name='Team 2',
+            department='Engineering',
+            manager='Dhon Jouble',
+            description='The test engineering team 2',
+            skills='Python, Django, Java',
+            email='secomd@sky.com',
+            downstream_dependencies='',
+            upstream_dependencies='Team 1',
+        )
+
+        self.team3 = Team.objects.create(
+            name='Team 3',
+            department='Ui/Ux',
+            manager='Third Man',
+            description='The test Ui/Ux team',
+            skills='Python, Django, Java',
+            email='third@sky.com',
+            downstream_dependencies='',
+            upstream_dependencies='',
         )
