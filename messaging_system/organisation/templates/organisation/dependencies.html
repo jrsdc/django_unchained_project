@@ -27,7 +27,7 @@
 <!--select team card-->
 <div style="background: linear-gradient(135deg, #9d4edd, #ff4d6d); color: white; border-radius:14px ; padding: 24px; margin-bottom: 24px;">
     <h2 style="font-size: 20px;font-weight: 800; margin-bottom: 4px;">{{ selected_team.name }}</h2>
-    <p style="opacity: 0.85; font-size: 14px;">{{ selected_team.description }} - Manager: {{ selected_team.manager }}</p>
+    <p style="opacity: 0.85; font-size: 14px;">{{ selected_team.department }} - <strong>Manager: {{ selected_team.manager }}</strong></p>
     {% if selected_team.description %}
     <p style="opacity: 0.75; font-size: 13px; margin-top: 8px;">{{ selected_team.description }}</p>
     {% endif %}
@@ -41,7 +41,7 @@
         <span style="font-size: 12px; color: #888; font-weight: 400;">(teams that {{ selected_team.name }} depends on)</span>
     </h3>
     {% if selected_team.upstream_dependencies %}
-    <p style="font-size: 14px; color: #444; background: #f8f9fc; padding: 12px; border-radius: 8px;">
+    <p style="font-size: 14px; color: #9d4edd; background: #f3e8ff; padding: 12px; border-radius: 8px;font-weight: 600;border-left: 4px solid #9d4edd;">
             {{ selected_team.upstream_dependencies }}
 </p>
 {% else %}
@@ -57,7 +57,7 @@
         <span style="font-size: 12px; color: #888; font-weight: 400;">(teams that depend on {{ selected_team.name }})</span>
     </h3>
     {% if selected_team.downstream_dependencies %}
-    <p style="font-size: 14px; color: #444; background: #f8f9fc; padding: 12px; border-radius: 8px;">
+    <p style="font-size: 14px; color: #9d4edd; background: #f3e8ff; padding: 12px; border-radius: 8px;font-weight: 600;border-left: 4px solid #9d4edd;">
             {{ selected_team.downstream_dependencies }}
 </p>
 {% else %}
