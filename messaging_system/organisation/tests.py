@@ -1,4 +1,7 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.contrib.auth.models import User
+from teams.models import Team
+from organisation.models import Department
 
 class OrganisationTests(TestCase):
     def setUp(self):
