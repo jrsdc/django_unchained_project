@@ -11,9 +11,9 @@
 <p style="color: #777; margin: 0;"> All the teams in this department</p>
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;">
+<div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 0 30px 30px 30px;">
     {% for team in teams %}
-    <div style="background: white;padding: 22px;border-radius: 14px;box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06); border: 1px solid #eee;"></div>
+    <div style="background: white;padding: 22px;border-radius: 14px;box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06); border: 1px solid #eee;">
         <span style="display: inline-block; background: #f2e6ff;color: #9d4edd; padding: 5px 9px; border-radius: 20px; font-size:12px; font-weight: 700; margin-bottom: 12px;">
             {{team.team_type}}
         </span>

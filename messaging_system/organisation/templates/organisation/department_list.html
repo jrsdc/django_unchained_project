@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<div style="padding:30px; width: 100%;">
+<div style="padding:30px;flex: 1;overflow-y: auto; width: 100%;">
     <div style="margin-bottom:25px;">
 <header style="font-size: 24px; font-weight: 700;margin-bottom: 5px;">Departments</header>
 <p style="color: #777;margin: 0;">All Sky departments</p>
         </div>
 
-<div style ="display: grid; grid-template-columns:repeat(3,1fr);gap:20px;">
+<div style="display: grid; grid-template-columns:repeat(3,1fr);gap:20px;">
 {% for dept in departments %}
     <div style="background:white;padding:22px; border-radius: 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);border: 1px solid #eee;">
         <span style="display: inline-block; background: #f2e6ff;color: #9d4edd; padding: 5px 9px; border-radius: 20px; font-size:12px; font-weight: 700; margin-bottom: 12px;">
