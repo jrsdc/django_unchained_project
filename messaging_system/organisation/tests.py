@@ -85,7 +85,7 @@ class OrganisationTests(TestCase):
             self.assertContains(response,'Team 1')
 
     def test_dependencies_with_team(self):
-            response = self.client.get(f'/organisation/departments/{self.team1.id}/')
+            response = self.client.get(f'/organisation/dependencies/{self.team1.id}/')
             self.assertEqual(response.status_code, 200)        
 
     def test_login_required_home(self):

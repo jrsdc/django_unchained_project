@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from teams.models import Team
 from .models import Department
@@ -56,7 +55,7 @@ def dependencies_view(request):
     return render(request, 'organisation/dependencies.html', {'all_teams': teams,
                                                               'selected_team':None,
                                                               'upstream_teams': [],
-                                                              'downstram_teams': []}
+                                                              'downstream_teams': []}
                                                             ) 
 
 @login_required
