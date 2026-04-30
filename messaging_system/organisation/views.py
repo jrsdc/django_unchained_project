@@ -40,8 +40,9 @@ def department_list(request):
         dept_name = team.department or 'Unassigned'
         if dept_name not in dept_map:
             dept_map[dept_name] = {'name': dept_name, 'teams':[], 'team_count':0}
-            dept_map[dept_name]['teams'].append(team)
-            dept_map[dept_name]['team_count'] += 1
+
+        dept_map[dept_name]['teams'].append(team)
+        dept_map[dept_name]['team_count'] += 1
 
     departments = sorted(dept_map.values(), key=lambda x: x['name'])
     return render(request, 'organisation/department_list.html', {'departments': departments,
